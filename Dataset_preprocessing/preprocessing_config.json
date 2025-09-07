@@ -1,0 +1,153 @@
+{
+    "dataset_info": {
+        "base_directory": "/content/processed_dataset",
+        "original_images_count": 2838,
+        "processing_techniques": [
+            "original",
+            "contrast_enhanced",
+            "grayscale",
+            "clahe_enhanced",
+            "gaussian_blur",
+            "edge_detection",
+            "histogram_equalized",
+            "normalized",
+            "cropped_retina",
+            "augmented",
+            "vessel_enhanced",
+            "noise_reduced"
+        ],
+        "splits": [
+            "train",
+            "val",
+            "test"
+        ],
+        "image_formats": [
+            ".jpg",
+            ".png",
+            ".jpeg"
+        ]
+    },
+    "processing_techniques": {
+        "contrast_enhanced": {
+            "description": "Enhanced contrast using factor 1.5",
+            "parameters": {
+                "contrast_factor": 1.5
+            },
+            "path": "/content/processed_dataset/02_contrast_enhanced"
+        },
+        "grayscale": {
+            "description": "Converted to grayscale",
+            "parameters": {},
+            "path": "/content/processed_dataset/03_grayscale"
+        },
+        "clahe_enhanced": {
+            "description": "CLAHE with clipLimit=2.0, tileGridSize=(8,8)",
+            "parameters": {
+                "clipLimit": 2.0,
+                "tileGridSize": [
+                    8,
+                    8
+                ]
+            },
+            "path": "/content/processed_dataset/04_clahe_enhanced"
+        },
+        "cropped_retina": {
+            "description": "Cropped to retinal region, tolerance=7",
+            "parameters": {
+                "tolerance": 7
+            },
+            "path": "/content/processed_dataset/09_cropped_retina"
+        },
+        "vessel_enhanced": {
+            "description": "Enhanced blood vessels using morphological operations",
+            "parameters": {
+                "kernel_size": [
+                    5,
+                    5
+                ]
+            },
+            "path": "/content/processed_dataset/11_vessel_enhanced"
+        },
+        "noise_reduced": {
+            "description": "Bilateral filter for noise reduction",
+            "parameters": {
+                "d": 9,
+                "sigmaColor": 75,
+                "sigmaSpace": 75
+            },
+            "path": "/content/processed_dataset/12_noise_reduced"
+        },
+        "histogram_equalized": {
+            "description": "Histogram equalization applied",
+            "parameters": {},
+            "path": "/content/processed_dataset/07_histogram_equalized"
+        },
+        "normalized": {
+            "description": "Normalized to 0-1 range",
+            "parameters": {},
+            "path": "/content/processed_dataset/08_normalized"
+        },
+        "gaussian_blur": {
+            "description": "Gaussian blur with kernel (5,5)",
+            "parameters": {
+                "kernel_size": [
+                    5,
+                    5
+                ]
+            },
+            "path": "/content/processed_dataset/05_gaussian_blur"
+        },
+        "edge_detection": {
+            "description": "Canny edge detection",
+            "parameters": {
+                "low_threshold": 50,
+                "high_threshold": 150
+            },
+            "path": "/content/processed_dataset/06_edge_detection"
+        },
+        "augmented": {
+            "description": "Advanced augmentation using albumentations",
+            "parameters": {
+                "augmentations_per_image": 3
+            },
+            "path": "/content/processed_dataset/10_augmented"
+        }
+    },
+    "recommended_usage": {
+        "classification_models": [
+            "original",
+            "contrast_enhanced",
+            "clahe_enhanced",
+            "cropped_retina"
+        ],
+        "segmentation_models": [
+            "vessel_enhanced",
+            "edge_detection",
+            "clahe_enhanced"
+        ],
+        "feature_extraction": [
+            "grayscale",
+            "histogram_equalized",
+            "normalized"
+        ],
+        "data_augmentation": [
+            "augmented"
+        ]
+    },
+    "training_recommendations": {
+        "input_size": "(512, 512) or (256, 256)",
+        "normalization": "Use normalized folder or apply transforms.Normalize",
+        "best_techniques_combo": [
+            "cropped_retina",
+            "clahe_enhanced",
+            "augmented"
+        ],
+        "batch_size": "8-16 depending on GPU memory",
+        "preprocessing_order": [
+            "crop",
+            "enhance",
+            "normalize",
+            "augment"
+        ]
+    }
+}

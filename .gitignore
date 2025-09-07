@@ -1,0 +1,20 @@
+﻿# Large model files
+*.pth
+*.pkl
+*.zip
+*.h5
+*.model
+*.tar.gz
+
+# Dataset files
+data/
+datasets/
+**/*.pth
+**/*.pkl
+**/*.zip
+
+# IDE and temp files
+.vscode/
+.idea/
+*.tmp
+__pycache__/
